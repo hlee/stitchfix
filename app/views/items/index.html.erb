@@ -1,0 +1,24 @@
+<h1>Items#index</h1>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= item.id %></td>
+        <td><%= item.size %></td>
+        <td><%= item.color %></td>
+        <td><%= item.status %></td>
+        <td><%= item.price_sold %></td>
+        <td><%= item.sold_at %></td>
+        <td><%= item.style.name %></td>
+        <td><%= item.clearance_batch_id %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

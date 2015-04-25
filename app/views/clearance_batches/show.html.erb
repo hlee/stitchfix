@@ -1,0 +1,32 @@
+<table  class="table table-bordered">
+  <thead>
+    <tr>
+      <th>size</th>
+      <th>color</th>
+      <th>status</th>
+      <th>price sold</th>
+      <th>sold at</th>
+      <th>name</th>
+      <th>type</th>
+      <th>min_sale_price</th>
+      <th>wholesale_price</th>
+      <th>retail_price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @clearance_batch.items.each do |item| %>
+      <tr>
+        <td><%= item.size %></td>
+        <td><%= item.color %></td>
+        <td><%= item.status %></td>
+        <td><%= item.price_sold %></td>
+        <td><%= item.sold_at %></td>
+        <td><%= item.style.name %></td>
+        <td><%= item.style.type %></td>
+        <td><%= item.style.min_sale_price %></td>
+        <td><%= item.style.wholesale_price %></td>
+        <td><%= item.style.retail_price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
