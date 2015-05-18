@@ -9,7 +9,7 @@ class Item < ActiveRecord::Base
 
   def clearance!
     price_sold = style.wholesale_price * CLEARANCE_PRICE_PERCENTAGE
-    if ["Pants", "dresses"].include?(style.type) and price_sold < 5
+    if ["Pants", "Dress"].include?(style.type) and price_sold < 5
       price_sold = 5
     elsif price_sold < 2
       price_sold = 2

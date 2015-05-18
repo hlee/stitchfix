@@ -1,11 +1,21 @@
 require 'csv'
 require 'ostruct'
 class ClearancingService
+  attr_accessor :ids
 
-  def process_file(uploaded_file)
+  def initialize(kind="barcodes", data)
+    if kind == "barcodes"
+      @ids = data.split(",")
+    else
+      @ids = []
+      CSV.foreach(data.tempfile, headers: false){|row| @ids << row[0]}
+    end
+  end
+
+  def process_arry
     clearancing_status      = create_clearancing_status
-    CSV.foreach(uploaded_file, headers: false) do |row|  
-      potential_item_id = row[0].to_i
+    @ids.each do |item_id|
+      potential_item_id = item_id.to_i
       clearancing_error = what_is_the_clearancing_error?(potential_item_id)
       if clearancing_error
         clearancing_status.errors << clearancing_error

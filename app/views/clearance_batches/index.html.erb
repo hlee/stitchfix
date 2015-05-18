@@ -1,11 +1,18 @@
 <h2>Clearance Batches</h2>
 
-<%= form_tag(clearance_batches_path, multipart: true, class: 'form-inline', role: 'form') do %>
+<%= form_tag(clearance_batches_path(kind: "file"), multipart: true, class: 'form-inline', role: 'form') do %>
   <div class="form-group">
-    <%= label_tag 'csv_batch_file', 'Select batch file' %>
-    <%= file_field_tag 'csv_batch_file', class: 'form-control' %>
+    <%= label_tag 'barcodes', 'Select batch file' %>
+    <%= file_field_tag 'barcodes', class: 'form-control' %>
   </div>
   <%= button_tag 'upload batch file', class: 'btn btn-primary' %>
+<% end %>
+
+<%= form_tag(clearance_batches_path(kind: "barcodes"), method: :post, class: 'form-inline', role: 'form') do %>
+  <div class="form-group">
+    <%= text_area_tag 'barcodes' %>
+  </div>
+  <%= button_tag 'upload', class: 'btn btn-primary' %>
 <% end %>
 
 <table class="table table-striped clearance_batches">
