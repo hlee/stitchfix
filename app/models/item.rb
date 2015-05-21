@@ -4,8 +4,10 @@ class Item < ActiveRecord::Base
 
   belongs_to :style
   belongs_to :clearance_batch
+  validates :size, presence: true
 
   scope :sellable, -> { where(status: 'sellable') }
+  scope :sort_by, -> (term) {order(term.to_sym) if term.present? }
 
   def clearance!
     price_sold = style.wholesale_price * CLEARANCE_PRICE_PERCENTAGE
