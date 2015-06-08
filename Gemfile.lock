@@ -7,6 +7,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (3.0.26)
     actionmailer (4.1.1)
       actionpack (= 4.1.1)
       actionview (= 4.1.1)
@@ -176,6 +177,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   bootstrap-sass (~> 3.2.0)
   capybara
   coffee-rails (~> 4.0.0)
