@@ -1,7 +1,8 @@
 require 'csv'
 require 'ostruct'
 class ClearancingService
-  attr_accessor :ids
+  include ::Validation::Barcode
+  attr_accessor :clearancing_status
 
   def initialize(kind="barcodes", data)
     if kind == "barcodes"
@@ -10,36 +11,37 @@ class ClearancingService
       @ids = []
       CSV.foreach(data.tempfile, headers: false){|row| @ids << row[0]}
     end
+    #@ids.valid? 
   end
 
   def process_arry
-    clearancing_status      = create_clearancing_status
+    @clearancing_status      = create_clearancing_status
     @ids.each do |item_id|
       potential_item_id = item_id.to_i
       clearancing_error = what_is_the_clearancing_error?(potential_item_id)
       if clearancing_error
-        clearancing_status.errors << clearancing_error
+        @clearancing_status.errors << clearancing_error
       else
-        clearancing_status.item_ids_to_clearance << potential_item_id
+        @clearancing_status.item_ids_to_clearance << potential_item_id
       end
     end
 
-    clearance_items!(clearancing_status) 
+    #clearance_items!
   end
 
 private
 
-  def clearance_items!(clearancing_status)
-    if clearancing_status.item_ids_to_clearance.any? 
-      clearancing_status.clearance_batch.save!
-      clearancing_status.item_ids_to_clearance.each do |item_id|
-        item = Item.find(item_id)
-        item.clearance!
-        clearancing_status.clearance_batch.items << item
-      end
-    end
-    clearancing_status
-  end
+  #def clearance_items!
+  #  if @clearancing_status.item_ids_to_clearance.any? 
+  #    @clearancing_status.clearance_batch.save!
+  #    @clearancing_status.item_ids_to_clearance.each do |item_id|
+  #      item = Item.find(item_id)
+  #      item.clearance!
+  #      @clearancing_status.clearance_batch.items << item
+  #    end
+  #  end
+  #  @clearancing_status
+  #end
 
   def what_is_the_clearancing_error?(potential_item_id)
     if potential_item_id.blank? || potential_item_id == 0 || !potential_item_id.is_a?(Integer)
@@ -53,7 +55,6 @@ private
     end
 
     return nil
-    
   end
 
   def create_clearancing_status
