@@ -21,4 +21,5 @@ group :test, :development do
   gem "database_cleaner", git: "git@github.com:bmabey/database_cleaner.git"
   gem "ruby_css_lint"
   gem "selenium-webdriver"
+  gem 'shoulda-matchers'
 end
