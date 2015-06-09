@@ -19,8 +19,7 @@ class Item < ActiveRecord::Base
     elsif price_sold < 2
       price_sold = 2
     end
-    self.price_sold = price_sold
-    self.sold_at = Time.now
+    self.update(price_sold: price_sold, sold_at: Time.now)
   end
 
   aasm :column => :status do
